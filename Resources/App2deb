@@ -11,7 +11,7 @@ if ! type ldid2 &>/dev/null; then
 fi
 if [ ! -d "$HOME/Documents/App2deb" ]; then
 	mkdir "$HOME/Documents/App2deb"
-fi	
+fi
 
 #Actual script
 FILENAME="$1"
@@ -28,13 +28,13 @@ else
 		unzip -qq "$FILENAME"
 		rm -rf __MACOSX
 		cd Payload
-		APPDIR=$(find . -type d -name "*.app") 
+		APPDIR=$(find . -type d -name "*.app")
 		cd ..
 		chmod -R +x Payload
 		mv Payload/"$APPDIR" "$APPDIR"
-		rm -rf Payload
-		rm -rf "$APPDIR"/_CodeSignature &>/dev/null
-		rm -f "$APPDIR"/embedded.mobileprovision &>/dev/null
+		# rm -rf Payload
+		# rm -rf "$APPDIR"/_CodeSignature &>/dev/null
+		# rm -f "$APPDIR"/embedded.mobileprovision &>/dev/null
 		find . -name ".DS_Store" -depth -exec rm {} \;
 		echo "Getting app version..."
 		VERSION=$(/usr/libexec/plistbuddy -c 'print CFBundleShortVersionString' ${APPDIR}/Info.plist)
@@ -46,7 +46,7 @@ else
 		BUNDLENAME=$(/usr/libexec/plistbuddy -c 'print CFBundleDisplayName' ${APPDIR}/Info.plist)
 		echo "$VERSION"-"$BUILD"
 		echo "Downloading entitlements..."
-		curl --silent https://raw.githubusercontent.com/Diatrus/App2deb/master/Resources/entitlements.xml > entitlements.xml
+		curl --silent https://raw.githubusercontent.com/nactro/App2deb/master/Resources/entitlements.xml > entitlements.xml
 		echo "Adding entitlements..."
 		find "$APPDIR" -perm +111 -type f -not -name "*.html" -not -name "*.css" -not -name "*.js" -exec ldid2 -Sentitlements.xml {} &>/dev/null \;
 		rm -f entitlements.xml
@@ -65,12 +65,12 @@ else
 			echo -e "Package: "$BUNDLEID"\nName: "$NAME"\nVersion: "$VERSION"-"$BUILD"\nPre-Depends: cy+cpu.arm64\nDepends: firmware (>= "$FIRMWARE"), mobilesubstrate\nSection: Applications\nPriority: Extra\nDescription: "$NAME" for the Apple TV\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: appletvos-arm64\n" > DEBIAN/control
 			echo -e "#!/bin/bash\necho 'finish:restart'" > DEBIAN/postinst
 
-		elif [ "$PLATFORM" = "iphoneos" ]; then	
+		elif [ "$PLATFORM" = "iphoneos" ]; then
 			echo -e "Package: "$BUNDLEID"\nName: "$NAME"\nVersion: "$VERSION"-"$BUILD"\nDepends: firmware (>= "$FIRMWARE")\nSection: Applications\nDescription: "$NAME" for iOS\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: iphoneos-arm\n" > DEBIAN/control
 			echo -e "#!/bin/bash\nuicache" > DEBIAN/postinst
 		else
 			echo "Invalid architecture!"
-		fi	
+		fi
 		echo "Make your manual edits to the control file and press any key to continue."
 		read -n 1 -s
 		chmod 0755 DEBIAN/postinst
@@ -83,5 +83,5 @@ else
 		rm -f "$FILENAME"
 		echo "Done!"
 		echo "Output: "$HOME"/Documents/App2deb/"$BUNDLEID"_"$VERSION"-"$BUILD".deb"
-	fi	
+	fi
 fi
