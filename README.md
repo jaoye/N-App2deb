@@ -64,4 +64,4 @@ dpkg -i [Your Package Name]
 ```bash
 App2Deb [Your IPA Path]
 ```
-### 值得注意的是，不要忘记替换 `Install` 与 `App2deb` 文件中相关的下载链接。
+### 值得注意的是，不要忘记替换 `Install` 与 `App2deb` 文件中相关的下载链接为你自己仓库的地址。
