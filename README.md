@@ -14,18 +14,18 @@ App2Deb 原为 的一个自动打包 ipa 文件为 deb，并且能将打包后�
 1. 首先用 ATOM 等任意代码编辑器打开 `embedded.mobileprovision` 复制该文件下 KeyChain 相关的头信息
 
 ```xml
-	<dict>
-	<key>application-identifier</key>
-	<string>2AMH2MYA4V.devs.nactro.achelper</string>
-	<key>keychain-access-groups</key>
-	<array>
-	<string>2AMH2MYA4V.*</string>
-	</array>
-	<key>get-task-allow</key>
-	<false/>
-	<key>com.apple.developer.team-identifier</key>
-	<string>2AMH2MYA4V</string>
-	</dict>
+<dict>
+<key>application-identifier</key>
+<string>2AMH2MYA4V.devs.nactro.achelper</string>
+<key>keychain-access-groups</key>
+<array>
+<string>2AMH2MYA4V.*</string>
+</array>
+<key>get-task-allow</key>
+<false/>
+<key>com.apple.developer.team-identifier</key>
+<string>2AMH2MYA4V</string>
+</dict>
 ```
 
 2. 将该头信息复制到 `entitlements.xml` 下，完整的 `entitlements.xml` 应该如下所示
