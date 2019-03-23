@@ -67,7 +67,8 @@ else
 
 		elif [ "$PLATFORM" = "iphoneos" ]; then
 			echo -e "Package: "$BUNDLEID"\nName: "$NAME"\nVersion: "$VERSION"-"$BUILD"\nDepends: firmware (>= "$FIRMWARE")\nSection: Applications\nDescription: "$NAME" for iOS\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: iphoneos-arm\n" > DEBIAN/control
-			echo -e "#!/bin/bash\nuicache" > DEBIAN/postinst
+			echo -e "#!/bin/bash\nuicache\nmkdir /private/var/mobile/nactro\nmkdir /private/var/mobile/nactro/trial" > DEBIAN/postinst
+			echo -e "#!/bin/bash\nrm -rf /private/var/mobile/nactro\nrm -rf /private/var/mobile/nactro/trial" > DEBIAN/prerm
 		else
 			echo "Invalid architecture!"
 		fi
@@ -75,6 +76,7 @@ else
 		read -n 1 -s
 		chmod 0755 DEBIAN/postinst
 		chmod 0755 DEBIAN/control
+		chmod 0755 DEBIAN/prerm
 		find . -name ".DS_Store" -depth -exec rm {} \;
 		cd ..
 		dpkg -b "$BUNDLEID"_"$VERSION"-"$BUILD" >/dev/null
