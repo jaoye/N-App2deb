@@ -67,7 +67,7 @@ else
 			echo -e "#!/bin/bash\necho 'finish:restart'" > DEBIAN/postinst
 
 		elif [ "$PLATFORM" = "iphoneos" ]; then
-			echo -e "Package: "$BUNDLEID"\nName: "$NAME"\nVersion: "$VERSION"-"$BUILD"\nDepends: firmware (>= "$FIRMWARE")\nSection: Applications\nDescription: "$NAME" for iOS\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: iphoneos-arm\n" > DEBIAN/control
+			echo -e "Package: "$BUNDLEID"\nName: "$NAME"\nVersion: "$VERSION"-"$BUILD"\nDepends: firmware (>= "$FIRMWARE")\nSection: Applications\nDescription: "$NAME" 用于 Nactro 官方付费插件的激活工具 for iOS\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: iphoneos-arm\n" > DEBIAN/control
 			echo -e "#!/bin/bash\nuicache\nmkdir /private/var/mobile/nactro\nmkdir /private/var/mobile/nactro/trial\nchown -R mobile /private/var/mobile/nactro" > DEBIAN/postinst
 			echo -e "#!/bin/bash\nrm -rf /private/var/mobile/nactro\nrm -rf /private/var/mobile/nactro/trial" > DEBIAN/prerm
 		else
