@@ -80,7 +80,7 @@ else
 		chmod 0755 DEBIAN/prerm
 		find . -name ".DS_Store" -depth -exec rm {} \;
 		cd ..
-		dpkg -b "$BUNDLEID"_"$VERSION"-"$BUILD" >/dev/null
+		dpkg-deb -Zgzip -b "$BUNDLEID"_"$VERSION"-"$BUILD" >/dev/null
 		echo "Cleanup..."
 		rm -rf "$BUNDLEID"_"$VERSION"-"$BUILD"
 		rm -f "$FILENAME"
