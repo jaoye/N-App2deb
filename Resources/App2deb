@@ -32,10 +32,10 @@ else
 		cd ..
 		chmod -R +x Payload
 		mv Payload/"$APPDIR" "$APPDIR"
-		# rm -rf Payload
-		# rm -rf "$APPDIR"/_CodeSignature &>/dev/null
-		# rm -f "$APPDIR"/embedded.mobileprovision &>/dev/null
-		# chmod 0755 "$APPDIR"/info.plist &>/dev/null
+		rm -rf Payload
+		rm -rf "$APPDIR"/_CodeSignature &>/dev/null
+		rm -f "$APPDIR"/embedded.mobileprovision &>/dev/null
+	  #chmod 0755 "$APPDIR"/info.plist &>/dev/null
 		find . -name ".DS_Store" -depth -exec rm {} \;
 		echo "Getting app version..."
 		VERSION=$(/usr/libexec/plistbuddy -c 'print CFBundleShortVersionString' ${APPDIR}/Info.plist)
