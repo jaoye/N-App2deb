@@ -18,14 +18,5 @@
     </array>
     <key>com.apple.developer.team-identifier</key>
     <string>2AMH2MYA4V</string>
-    <key>com.apple.CommCenter.fine-grained</key>
-<array>
-    <string>cellular-plan</string>
-    <string>data-usage</string>
-    <string>data-allowed-write</string>
-    <string>preferences-write</string>
-</array>
-<key>platform-application</key>
-<true/>
 </dict>
 </plist>
