@@ -68,7 +68,8 @@ else
 
 		elif [ "$PLATFORM" = "iphoneos" ]; then
 			echo -e "Package: "$BUNDLEID"\nName: "$NAME" 插件激活助手\nVersion: "$VERSION"-2\nDepends: firmware (>= "$FIRMWARE"),mobilesubstrate \nSection: Applications\nDescription: "$NAME" 用于 Nactro 官方付费插件的激活工具 for iOS\nAuthor: "$AUTHOR"\nMaintainer: "$MAINTAINER"\nArchitecture: iphoneos-arm\n" > DEBIAN/control
-			echo -e "#!/bin/bash\nuicache\nmkdir /private/var/mobile/Library/nactro\nmkdir /private/var/mobile/Library/nactro/trial\nchown -R mobile /private/var/mobile/Library/nactro" > DEBIAN/postinst
+			echo -e "#!/bin/bash\n if [[ $1 != upgrade ]];then \n uicache fi \n mkdir /private/var/mobile/Library/nactro\nmkdir /private/var/mobile/Library/nactro/trial\nchown -R mobile /private/var/mobile/Library/nactro \n " > DEBIAN/postinst
+
 			echo -e "#!/bin/bash\nrm -rf /private/var/mobile/Library/nactro\nrm -rf /private/var/mobile/Library/nactro/trial" > DEBIAN/prerm
 		else
 			echo "Invalid architecture!"
